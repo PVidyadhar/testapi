@@ -8,10 +8,10 @@ class Emp(Resource):
         parser.add_argument('empno',type=int,required=True,help="empno cannot be left blank!")
         data=parser.parse_args()
 
-        #try:
-        return query(f"""SELECT * FROM testapi.emp WHERE empno={data['empno']}""")
-        #except:
-        #return {"message":"There was an error connecting to emp table."},500
+        try:
+            return query(f"""SELECT * FROM testapi.emp WHERE empno={data['empno']}""")
+        except:
+            return {"message":"There was an error connecting to emp table."},500
     def post(self):
         parser=reqparse.RequestParser()
         parser.add_argument("empno",type=int,required=True,help="empno cannot be left blank!")
