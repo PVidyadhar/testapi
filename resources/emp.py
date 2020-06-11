@@ -5,6 +5,7 @@ from db import query
 
 
 class Emp(Resource):
+    @jwt_required
     def get(self):
         parser=reqparse.RequestParser()
         parser.add_argument('empno',type=int,required=True,help="empno cannot be left blank!")
@@ -14,6 +15,8 @@ class Emp(Resource):
             return query(f"""SELECT * FROM testapi.emp WHERE empno={data['empno']}""")
         except:
             return {"message":"There was an error connecting to emp table."},500
+
+    @jwt_required
     def post(self):
         parser=reqparse.RequestParser()
         parser.add_argument("empno",type=int,required=True,help="empno cannot be left blank!")
